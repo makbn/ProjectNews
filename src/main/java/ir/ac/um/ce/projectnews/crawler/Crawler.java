@@ -10,22 +10,67 @@ import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import ir.ac.um.ce.projectnews.utils.Constants;
 
 public class Crawler {
-    private static final String USERNAME = "Tasnimnews_Fa";
-    private static final String CSV_PATH = "./out.csv";
 
-    public static void main(String[] args) throws IOException {
+    private static HashMap<String, String> argsMap;
+
+    static {
+        argsMap = new HashMap<>();
+    }
+
+    /**
+     * @param args -i -s -e -m -p -n
+     * @throws IOException
+     */
+    public static void main(String[] args) throws IOException,RuntimeException {
+        if (args != null && args.length>0) {
+            for (int i = 0; i < args.length; i++) {
+                switch (args[i]) {
+                    case "-i":
+                        argsMap.put("-i", args[i + 1]);
+                        break;
+                    case "-s":
+                        argsMap.put("-s", args[i + 1]);
+                        break;
+                    case "-e":
+                        argsMap.put("-e", args[i + 1]);
+                        break;
+                    case "-m":
+                        argsMap.put("-m", args[i + 1]);
+                        break;
+                    case "-p":
+                        argsMap.put("-p", args[i + 1]);
+                        break;
+                    case "-n":
+                        argsMap.put("-n", args[i + 1]);
+                        break;
+
+                }
+            }
+            if(argsMap.get("-i")==null)
+                throw new RuntimeException("-i flag is required!");
+        }else {
+            throw new RuntimeException("flags not set!");
+        }
+
         TwitterCriteria criteria = TwitterCriteria.create()
-                .setUsername(USERNAME).setMaxTweets(1000000)
-                .setSince("2018-06-01").setUntil(DateTimeHelper.getLastDayOfMonth(2018, 6));
+                .setUsername(argsMap.get("-i") == null
+                        ? Constants.USERNAME : argsMap.get("-i"))
+                .setMaxTweets(argsMap.get("-m") == null
+                        ? Constants.DEFAULT_MAX_TWEETS : Integer.valueOf(argsMap.get("-m")))
+                .setSince(argsMap.get("-s"))
+                .setUntil(argsMap.get("-e"));
+
+        System.out.println("Start Crawling id: " + argsMap.get("-i"));
+
         ArrayList<Tweet> tweets = (ArrayList<Tweet>) TweetManager.getTweets(criteria);
-        System.out.println(tweets.size());
 
-
-        try (Writer writer = Files.newBufferedWriter(Paths.get(CSV_PATH));
+        try (Writer writer = Files.newBufferedWriter(Paths.get(generatePath()));
              CSVWriter csvWriter = new CSVWriter(writer,
                      CSVWriter.DEFAULT_SEPARATOR,
                      CSVWriter.NO_QUOTE_CHARACTER,
@@ -35,17 +80,36 @@ public class Crawler {
             String[] headerRecord = {"ID", "Permalink", "Text", "Date", "Retweets", "Favorites"};
             csvWriter.writeNext(headerRecord);
 
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
             for (Tweet t : tweets) {
                 csvWriter.writeNext(new String[]{
                         t.getId(),
                         t.getPermalink(),
                         t.getText(),
-                        formatter.format(t.getDate()),
-                        t.getRetweets() + "",
-                        t.getFavorites() + ""
+                        DateTimeHelper.getSimpleDateFormat().format(t.getDate()),
+                        String.valueOf(t.getRetweets()),
+                        String.valueOf(t.getFavorites())
                 });
             }
         }
+    }
+
+    private static String generatePath(){
+        String path = (argsMap.get("-p") == null
+                ? Constants.CSV_PATH : argsMap.get("-p")) +
+                (argsMap.get("-n") == null
+                ? generateName() + ".csv" : argsMap.get("-n"));
+
+        return path;
+    }
+
+    private static String generateName() {
+        String name="out"
+                + "_" + argsMap.get("-i")
+                + "_" + argsMap.get("-s")
+                + "_" + argsMap.get("-e")
+                + "_" + argsMap.get("-m");
+
+        return name;
     }
 }
