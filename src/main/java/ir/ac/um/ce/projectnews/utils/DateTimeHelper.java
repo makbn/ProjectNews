@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class DateTimeHelper {
     public static String getLastDayOfMonth(int year, int month) {
-        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat sdf = getSimpleDateFormat();
 
         try {
             Date date = sdf.parse(year + "-" + (month < 10 ? ("0" + month) : month) + "-01");
@@ -25,5 +25,11 @@ public class DateTimeHelper {
         } catch (Exception ex) {
             return null;
         }
+    }
+
+
+    public static DateFormat getSimpleDateFormat(){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        return formatter;
     }
 }
