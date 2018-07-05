@@ -27,8 +27,8 @@ public class Crawler {
      * @param args -i -s -e -m -p -n
      * @throws IOException
      */
-    public static void main(String[] args) throws IOException,RuntimeException {
-        if (args != null && args.length>0) {
+    public static void main(String[] args) throws IOException, RuntimeException {
+        if (args != null && args.length > 0) {
             for (int i = 0; i < args.length; i++) {
                 switch (args[i]) {
                     case "-i":
@@ -52,9 +52,9 @@ public class Crawler {
 
                 }
             }
-            if(argsMap.get("-i")==null)
+            if (argsMap.get("-i") == null)
                 throw new RuntimeException("-i flag is required!");
-        }else {
+        } else {
             throw new RuntimeException("flags not set!");
         }
 
@@ -94,17 +94,17 @@ public class Crawler {
         }
     }
 
-    private static String generatePath(){
+    private static String generatePath() {
         String path = (argsMap.get("-p") == null
                 ? Constants.CSV_PATH : argsMap.get("-p")) +
                 (argsMap.get("-n") == null
-                ? generateName() + ".csv" : argsMap.get("-n"));
+                        ? generateName() + ".csv" : argsMap.get("-n"));
 
         return path;
     }
 
     private static String generateName() {
-        String name="out"
+        String name = "out"
                 + "_" + argsMap.get("-i")
                 + "_" + argsMap.get("-s")
                 + "_" + argsMap.get("-e")
