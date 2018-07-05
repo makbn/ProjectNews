@@ -38,3 +38,5 @@ bin/
 .project
 .settings/
 target/
+
+out/
