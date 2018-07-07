@@ -9,8 +9,8 @@
 </p>
 
 <p dir="rtl">
-محمد رضا دلیری (٩٣١٢۴٣٠٢٣٣)
-مهدی اکبریان رستاقی(۹۳۱۲۴۳۰۴۳۷)
+محمد رضا دلیری (* ٩٣١٢۴٣٠٢٣٣)
+مهدی اکبریان رستاقی(* ۹۳۱۲۴۳۰۴۳۷)
 </p>
 
 <p dir="rtl">
@@ -18,9 +18,9 @@
 کتابخانه های بکار رفته:
 </p>
 
-* GetOldTweets-java v1.2.0
+* `GetOldTweets-java v1.2.0`
 
-* Lucene 7.2.1
+* `Lucene 7.2.1`
 
 <p dir="rtl">
 صفحه ی بررسی شده:
@@ -54,10 +54,11 @@
 پرچم -n؛ نام انتخابی برای ذخیره فایل
 </div>
 
-<p dir="rtl">
+<div dir="rtl">
 به عنوان مثال برای استخراج توییت های صفحه TasnimNews از تاریخ ۲۰۱۸/۰۶/۰۱ تا تاریخ ۲۰۱۸/۰۷/۰۱  در مسیر result ورودی باید بصورت زیر باشد:
-java -cp ProjectNews.jar ir.ac.um.ce.projectnews.crawler.Crawler -i Tasnimnews_Fa -s 2018-06-01 -e 2018-07-01 -p result/
-</p>
+ 
+`java -cp ProjectNews.jar ir.ac.um.ce.projectnews.crawler.Crawler -i Tasnimnews_Fa -s 2018-06-01 -e 2018-07-01 -p result/`
+</div>
 
 <p dir="rtl">
 در مرحله بعد با استفاده از کلاس Searcher و Classifier  ابتدا سند های موجود را  پس از حذف Stop word ها نمایه گذاری می‌کنیم، سپس با استفاده از تعدادی کوئری که از Bag of Words مربوط به هر حوزه ساخته شده است اسناد را بازیابی و بر اساس میزان مرتبط بودن مرتب می‌کنیم
