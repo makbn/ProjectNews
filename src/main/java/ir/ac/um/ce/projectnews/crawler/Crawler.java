@@ -49,7 +49,6 @@ public class Crawler {
                     case "-n":
                         argsMap.put("-n", args[i + 1]);
                         break;
-
                 }
             }
             if(argsMap.get("-i")==null)
