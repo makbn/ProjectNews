@@ -28,8 +28,7 @@ public class DateTimeHelper {
     }
 
 
-    public static DateFormat getSimpleDateFormat(){
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        return formatter;
+    public static DateFormat getSimpleDateFormat() {
+        return new SimpleDateFormat("yyyy-MM-dd");
     }
 }
