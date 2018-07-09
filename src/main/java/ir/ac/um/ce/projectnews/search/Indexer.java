@@ -9,10 +9,6 @@ import java.util.Scanner;
 public class Indexer {
 
     public static void main(String[] args) throws IOException {
-        System.out.println("Welcome to Indexer program!");
-        System.out.println("It's developed by Mohammad-Reza Daliri at Ferdowsi University of Mashhad");
-        System.out.println("--------------------");
-
         String index = null;
         if (args.length < 1) {
             System.err.println("Corpus file not defined!");

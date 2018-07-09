@@ -14,7 +14,7 @@ public class Classifier {
     public static void main(String[] args) throws IOException {
         String index = "indices";
         String queriesPath = null;
-        int resultsCount = 5;
+        int resultsCount = 1000000;
         if (args.length < 1) {
             System.err.println("Queries not defined!");
             System.err.println("Index path not defined!");
