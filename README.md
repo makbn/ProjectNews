@@ -1,28 +1,20 @@
-# ProjectNews
+## Twitter Persian news tagcloud extraction
 
-<p dir="rtl">
-پروژه پایانی درس مبانی بازیابی اطلاعات و جستجوی وب 
-</p>
+Final project of Information retrieval course.
 
-<p dir="rtl">
-استخراج توییت ها برای یک صفحه خبری فارسی در تویتر و بر اساس ماه های سال ،کلمات کلیدی داغ  بکار رفته برای دو حوزه  اقتصادی و اجتماعی
-</p>
+TPNT is a Tag Cloud generator that extracts hot keywords from Twitter page of a major Persian news agency in the fields of Economics and Socials for each month in a year.
 
 ---
 
-در این پروژه سعی شده تا با استفاده آخرین نسخه کتابخانه لوسن، مجموعهای از کلمات کلیدی داغ  بکار رفته برای دو حوزه  اقتصادی و اجتماعی اندیسگذاری و مهم ترین آنها بازیابی شود. 
-کتابخانه های بکار رفته:
-</p>
+### Dependencies
 
 * `GetOldTweets-java v1.2.0`
 
 * `Lucene 7.2.1`
 
-<p dir="rtl">
-صفحه ی بررسی شده:
- </p>
+### News Agency
  
-* TasnimNews
+* Tasnim News([@TasnimNews_Fa](https://twitter.com/tasnimnews_fa))
 
 ---
 
