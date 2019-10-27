@@ -1,5 +1,6 @@
 package ir.ac.um.ce.projectnews.search;
 
+import ir.ac.um.ce.projectnews.exception.InvalidConfigurationException;
 import org.apache.lucene.search.similarities.BM25Similarity;
 
 import java.io.IOException;
@@ -23,14 +24,12 @@ public class Classifier {
             System.err.println("INFO: Using default results count (5).");
             queriesPath = args[0];
         } else if (args.length == 2) {
-            System.err.println("Results count not defined!");
-            System.exit(1);
+            throw new InvalidConfigurationException("Results count not defined!");
         } else {
             index = args[0];
             Path indexPath = Paths.get(index);
             if (!Files.exists(indexPath)) {
-                System.err.println("Index path does not exist.");
-                System.exit(1);
+                throw new InvalidConfigurationException("Index path does not exist.");
             }
             queriesPath = args[1];
             resultsCount = Integer.parseInt(args[2]);
@@ -40,9 +39,7 @@ public class Classifier {
 
         try {
             long startTime = System.currentTimeMillis();
-
             searcher.search();
-
             System.out.printf("DONE in %.3fs.\n", (System.currentTimeMillis() - startTime) / 1000.0);
         } catch (Exception ex) {
             System.err.println(ex.getMessage());

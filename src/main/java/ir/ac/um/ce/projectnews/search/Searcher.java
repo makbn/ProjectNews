@@ -9,7 +9,10 @@ import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.*;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
-import org.apache.lucene.search.*;
+import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.Query;
+import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.search.similarities.Similarity;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
@@ -47,7 +50,7 @@ class Searcher {
         IndexWriter relatedWriter = createWriter();
         IndexSearcher searcher = new IndexSearcher(reader);
         searcher.setSimilarity(similarity);
-        Query q = null;
+        Query q;
         List<Document> documents = new ArrayList<>();
         try {
             q = new QueryParser("body", analyzer).parse(query);
@@ -80,11 +83,9 @@ class Searcher {
         BytesRef term;
         ArrayList<Pair> counts = new ArrayList<>();
         while ((term = it.next()) != null) {
-            StringBuilder result = new StringBuilder();
             PostingsEnum docsEnum = MultiFields.getTermDocsEnum(reader, "body", term);
-            int docId;
             long seen = 0;
-            while ((docId = docsEnum.nextDoc()) != PostingsEnum.NO_MORE_DOCS) {
+            while (docsEnum.nextDoc() != PostingsEnum.NO_MORE_DOCS) {
                 seen += docsEnum.freq();
             }
             counts.add(new Pair(term.utf8ToString(), seen));
