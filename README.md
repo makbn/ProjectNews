@@ -19,14 +19,14 @@ TPNT is a Tag cloud generator that extracts hot keywords from Twitter page of a 
 
 This project has to main steps. First, twitts are stored in a `csv` file with the help of `Crawler` class. this class needs some **options** to work properly:
 
-Flag | Desc | Requisition
------------- | ------------- | -------------
-`-i` | The Id of twitter page | `required`
-`-s` | Start date of extraction, format: `YYY-MM-DD` | `required` 
-`-e` | End date of extraction, format: `YYY-MM-DD` | 
-`-m` | Limitation in the number of retrieved twitts |
-`-p` | Path of csv file |
-`-n` | Name of csv file |
+| Flag | Desc | Requisition |
+| ------------ | ------------- | ------------- |
+| `-i` | The Id of twitter page | `required` |
+| `-s` | Start date of extraction, format: `YYY-MM-DD` | `required` |
+| `-e` | End date of extraction, format: `YYY-MM-DD` | no |
+| `-m` | Limitation in the number of retrieved twitts | no |
+| `-p` | Path of csv file | no |
+| `-n` | Name of csv file | no |
 
 An example for retrieving twitts from ([@TasnimNews_Fa](https://twitter.com/tasnimnews_fa)) starting from 2018-06-01 to 2018-07-01 in `$PWD/result/` path:
 
