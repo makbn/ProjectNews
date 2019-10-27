@@ -1,68 +1,46 @@
-# ProjectNews
+## Twitter Persian news tagcloud extraction
 
-<p dir="rtl">
-پروژه پایانی درس مبانی بازیابی اطلاعات و جستجوی وب 
-</p>
+Final project of Information retrieval course.
 
-<p dir="rtl">
-استخراج توییت ها برای یک صفحه خبری فارسی در تویتر و بر اساس ماه های سال ،کلمات کلیدی داغ  بکار رفته برای دو حوزه  اقتصادی و اجتماعی
-</p>
+TPNT is a Tag cloud generator that extracts hot keywords from Twitter page of a major Persian news agency in the fields of **Economics** and **Socials** for each month in a year.
 
-<p dir="rtl">
-محمد رضا دلیری (* ٩٣١٢۴٣٠٢٣٣)
-مهدی اکبریان رستاقی(* ۹۳۱۲۴۳۰۴۳۷)
-</p>
+---
 
-<p dir="rtl">
-در این پروژه سعی شده تا با استفاده آخرین نسخه کتابخانه لوسن، مجموعهای از کلمات کلیدی داغ  بکار رفته برای دو حوزه  اقتصادی و اجتماعی اندیسگذاری و مهم ترین آنها بازیابی شود. 
-کتابخانه های بکار رفته:
-</p>
+### Dependencies
 
-* `GetOldTweets-java v1.2.0`
+*  `GetOldTweets-java v1.2.0`
 
-* `Lucene 7.2.1`
+*  `Lucene 7.2.1`
 
-<p dir="rtl">
-صفحه ی بررسی شده:
- </p>
+### News agency
  
-* TasnimNews
+* Tasnim News([@TasnimNews_Fa](https://twitter.com/tasnimnews_fa))
 
-<p dir="rtl">
-۱- اجرای پروژه
-اجرای پروژه ۲ مرحله اصلی دارد، ابتدابا استفاده از کلاس Crawler توییت های صفحه ی مورد نظر استخراج می شود و سپس در یک فایل با فرمت csv که دارای پارامتر های  زیر است ذخیره می شود.
-</p>
+---
 
-<div dir="rtl">
- 
-برای اجرای کلاس Crawler نیاز است یک سری پارامتر ها را به عتوان آرگومان ورودی بدهید:
+### How to Run
 
-پرچم -i: مشخص کننده Id صفحه مورد در تویتر برای استخراج توییت ها(اجباری)
+This project has to main steps. First, twitts are stored in a `csv` file with the help of `Crawler` class. this class needs some **options** to work properly:
 
-پرچم -s: مشخص کننده تاریخ شروع بازه زمانی مورد نظر برای دریافت توییت ها
+*  `-i` : The Id of twitter page  `required`
+*  `-s` : Start date of extraction  `required`
+    *  format: `YYY-MM-DD`
+*  `-e` : End date of extraction 
+    *  format: `YYY-MM-DD`
+*  `-m` : Limitation in the number of retrieved twitts 
+*  `-p` : Path of csv file
+*  `-n` : Name of csv file
 
-فرمت ورودی: YYYY-MM-DD
+An example for retrieving twitts from ([@TasnimNews_Fa](https://twitter.com/tasnimnews_fa)) starting from 2018-06-01 to 2018-07-01 in `$PWD/result/` path:
 
-پرچم -e: مشخص کننده تاریخ پایان بازه زمانی مورد نظر
+```bash
+java -cp ProjectNews.jar ir.ac.um.ce.projectnews.crawler.Crawler -i Tasnimnews_Fa -s 2018-06-01 -e 2018-07-01 -p result/
+```
 
-فرمت ورود : YYYY-MM-DD
+The next step is indexing docs. After removing stop-words from docs we use `Searcher` and `Classifier` classes plus a Bag of word to create some queries to estimate the correlation of each doc with context. Finally, we use the most corrolated words to generate a tag clud.
 
-پرچم -m: محدود کننده حد اکثر تعداد پیام های استخراج شده در بازه زمانی مورد نظر
+### Contributors
 
-پرچم -p: مسیر ذخیره فایل تویت های استخراج شده
+* [Mehdi Akbarian-Rastaghi](https://github.com/makbn)
+* [Mohammad-Reza Daliri](https://github.com/mrdaliri)
 
-پرچم -n؛ نام انتخابی برای ذخیره فایل
-</div>
-
-<div dir="rtl">
-به عنوان مثال برای استخراج توییت های صفحه TasnimNews از تاریخ ۲۰۱۸/۰۶/۰۱ تا تاریخ ۲۰۱۸/۰۷/۰۱  در مسیر result ورودی باید بصورت زیر باشد:
- 
-`java -cp ProjectNews.jar ir.ac.um.ce.projectnews.crawler.Crawler -i Tasnimnews_Fa -s 2018-06-01 -e 2018-07-01 -p result/`
-</div>
-
-<p dir="rtl">
-در مرحله بعد با استفاده از کلاس Searcher و Classifier  ابتدا سند های موجود را  پس از حذف Stop word ها نمایه گذاری می‌کنیم، سپس با استفاده از تعدادی کوئری که از Bag of Words مربوط به هر حوزه ساخته شده است اسناد را بازیابی و بر اساس میزان مرتبط بودن مرتب می‌کنیم
-در نهایت کلمات پرتکرار این اسناد را بر اساس تعداد تکرار به عنوان کلمات کلیدی در نظر می‌گیریم.
-</p>
-
- 

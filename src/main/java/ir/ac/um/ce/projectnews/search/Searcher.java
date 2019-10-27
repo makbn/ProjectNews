@@ -66,8 +66,6 @@ class Searcher {
                 Document storedDocument = reader.document(doc.doc);
 
                 boolean isRelated = doc.score >= threshold;
-//                System.out.printf("%d\t%.3f\t%s\t%s\t%s\n", j + 1, doc.score, storedDocument.get("id"), storedDocument.get("body"), isRelated ? "Related" : "NOT related");
-
                 if (isRelated) {
                     documents.add(createDocument(storedDocument.get("body")));
                 }
