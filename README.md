@@ -15,17 +15,15 @@ TPNT is a Tag cloud generator that extracts hot keywords from Twitter page of a 
  
 *   Tasnim News([@TasnimNews_Fa](https://twitter.com/tasnimnews_fa))
 
----
-
 ### How to Run
 
 This project has to main steps. First, twitts are stored in a `csv` file with the help of `Crawler` class. this class needs some **options** to work properly:
 
 *   `-i` : The Id of twitter page `required`
 *   `-s` : Start date of extraction `required`
-     *  format: `YYY-MM-DD`
+     *   format: `YYY-MM-DD`
 *   `-e` : End date of extraction
-     *  format: `YYY-MM-DD`
+     *   format: `YYY-MM-DD`
 *   `-m` : Limitation in the number of retrieved twitts
 *   `-p` : Path of csv file
 *   `-n` : Name of csv file
