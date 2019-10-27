@@ -32,19 +32,16 @@ This project has to main steps. First, twitts are stored in a `csv` file with th
  * `-n` : Name of csv file
 
 
-example for retrieving twitts from ([@TasnimNews_Fa](https://twitter.com/tasnimnews_fa)) starting from 2018-06-01 to 2018-07-01 in `$PWD/result/`path:
+An example for retrieving twitts from ([@TasnimNews_Fa](https://twitter.com/tasnimnews_fa)) starting from 2018-06-01 to 2018-07-01 in `$PWD/result/` path:
 
 ```bash
 java -cp ProjectNews.jar ir.ac.um.ce.projectnews.crawler.Crawler -i Tasnimnews_Fa -s 2018-06-01 -e 2018-07-01 -p result/
 ```
 
-<p dir="rtl">
-در مرحله بعد با استفاده از کلاس Searcher و Classifier  ابتدا سند های موجود را  پس از حذف Stop word ها نمایه گذاری می‌کنیم، سپس با استفاده از تعدادی کوئری که از Bag of Words مربوط به هر حوزه ساخته شده است اسناد را بازیابی و بر اساس میزان مرتبط بودن مرتب می‌کنیم
-در نهایت کلمات پرتکرار این اسناد را بر اساس تعداد تکرار به عنوان کلمات کلیدی در نظر می‌گیریم.
-</p>
+The next step is indexing docs. After removing stop-words from docs we use `Searcher` and `Classifier` classes plus a Bag of word to create some queries to estimate the correlation of each doc with context. Finally, we use the most corrolated words to generate a tag clud.
 
 ### Contributors
 
-* [Mehdi Akbarian-Rastaghi](@makbn)
-* [Mohammad-Reza Daliri](@mrdaliri)
+* [Mehdi Akbarian-Rastaghi](https://github.com/makbn)
+* [Mohammad-Reza Daliri](https://github.com/mrdaliri)
 
