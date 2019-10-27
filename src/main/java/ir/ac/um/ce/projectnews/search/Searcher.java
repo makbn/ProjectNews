@@ -3,18 +3,14 @@ package ir.ac.um.ce.projectnews.search;
 
 import ir.ac.um.ce.projectnews.utils.Pair;
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.CharArraySet;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
-import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.*;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.*;
 import org.apache.lucene.search.similarities.Similarity;
-import org.apache.lucene.search.similarities.TFIDFSimilarity;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.BytesRef;
@@ -24,7 +20,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 class Searcher {
     private final String indexPath;
@@ -34,7 +31,7 @@ class Searcher {
 
     private Similarity similarity;
 
-    public Searcher(String indexPath, String queriesPath, int resultsCount, Similarity similarity) throws IOException {
+    Searcher(String indexPath, String queriesPath, int resultsCount, Similarity similarity) throws IOException {
         this.indexPath = indexPath;
         this.resultsCount = resultsCount;
         this.similarity = similarity;
@@ -44,7 +41,7 @@ class Searcher {
         query = readFromFile(queriesPath);
     }
 
-    public void search() throws Exception {
+    void search() throws Exception {
         PrintWriter output = new PrintWriter(System.out);
         IndexReader reader = createReader(indexPath);
         IndexWriter relatedWriter = createWriter();

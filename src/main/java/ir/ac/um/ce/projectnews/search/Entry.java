@@ -4,7 +4,7 @@ class Entry {
     private String id;
     private String body;
 
-    public Entry(String id, String body) {
+    Entry(String id, String body) {
         this.id = id;
         this.body = body;
     }
@@ -13,7 +13,7 @@ class Entry {
         return id;
     }
 
-    public String getBody() {
+    String getBody() {
         return body;
     }
 }

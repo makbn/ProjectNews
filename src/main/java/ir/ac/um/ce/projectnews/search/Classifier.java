@@ -1,8 +1,6 @@
 package ir.ac.um.ce.projectnews.search;
 
 import org.apache.lucene.search.similarities.BM25Similarity;
-import org.apache.lucene.search.similarities.TFIDFSimilarity;
-import org.apache.lucene.util.BytesRef;
 
 import java.io.IOException;
 import java.nio.file.Files;

@@ -1,6 +1,8 @@
 package ir.ac.um.ce.projectnews.crawler;
 
 import com.opencsv.CSVWriter;
+import ir.ac.um.ce.projectnews.exception.InvalidConfigurationException;
+import ir.ac.um.ce.projectnews.utils.Constants;
 import ir.ac.um.ce.projectnews.utils.DateTimeHelper;
 import me.jhenrique.manager.TweetManager;
 import me.jhenrique.manager.TwitterCriteria;
@@ -13,8 +15,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import ir.ac.um.ce.projectnews.utils.Constants;
-
 public class Crawler {
 
     private static HashMap<String, String> argsMap;
@@ -25,7 +25,7 @@ public class Crawler {
 
     /**
      * @param args -i -s -e -m -p -n
-     * @throws IOException
+     * @throws IOException in writing csv file
      */
     public static void main(String[] args) throws IOException, RuntimeException {
         if (args != null && args.length > 0) {
@@ -52,16 +52,16 @@ public class Crawler {
                 }
             }
             if (argsMap.get("-i") == null)
-                throw new RuntimeException("-i flag is required!");
+                throw new InvalidConfigurationException("-i flag is required!");
         } else {
-            throw new RuntimeException("flags not set!");
+            throw new InvalidConfigurationException("flags not set!");
         }
 
         TwitterCriteria criteria = TwitterCriteria.create()
                 .setUsername(argsMap.get("-i") == null
                         ? Constants.USERNAME : argsMap.get("-i"))
                 .setMaxTweets(argsMap.get("-m") == null
-                        ? Constants.DEFAULT_MAX_TWEETS : Integer.valueOf(argsMap.get("-m")))
+                        ? Constants.DEFAULT_MAX_TWEETS : Integer.parseInt(argsMap.get("-m")))
                 .setSince(argsMap.get("-s"))
                 .setUntil(argsMap.get("-e"));
 
@@ -94,21 +94,17 @@ public class Crawler {
     }
 
     private static String generatePath() {
-        String path = (argsMap.get("-p") == null
+        return (argsMap.get("-p") == null
                 ? Constants.CSV_PATH : argsMap.get("-p")) +
                 (argsMap.get("-n") == null
                         ? generateName() + ".csv" : argsMap.get("-n"));
-
-        return path;
     }
 
     private static String generateName() {
-        String name = "out"
+        return "out"
                 + "_" + argsMap.get("-i")
                 + "_" + argsMap.get("-s")
                 + "_" + argsMap.get("-e")
                 + "_" + argsMap.get("-m");
-
-        return name;
     }
 }
